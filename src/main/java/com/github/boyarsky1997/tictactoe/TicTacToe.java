@@ -48,7 +48,8 @@ public class TicTacToe implements Serializable {
         initTable();
         while (true) {
             turnHuman(1, 2);
-            if (checkWin(SIGN_X)) {
+            String[] strings1 = checkWin(SIGN_X);
+            if (strings1 != null) {
                 System.out.println("Nagibator WIN!");
                 break;
             }
@@ -58,7 +59,8 @@ public class TicTacToe implements Serializable {
             }
             turnAI();
             printTable();
-            if (checkWin(SIGN_O)) {
+            String[] strings = checkWin(SIGN_O);
+            if (strings != null) {
                 System.out.println("Термінатор WIN!");
                 break;
             }
@@ -77,7 +79,7 @@ public class TicTacToe implements Serializable {
                 table[row][col] = SIGN_EMPTY;
     }
 
-  public   void printTable() {
+    public void printTable() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++)
                 System.out.print(table[row][col] + " ");
@@ -107,19 +109,39 @@ public class TicTacToe implements Serializable {
         table[y][x] = SIGN_O;
     }
 
-    public boolean checkWin(char dot) {
-        for (int i = 0; i < 3; i++)
-            if ((table[i][0] == dot && table[i][1] == dot &&
-                    table[i][2] == dot) ||
-                    (table[0][i] == dot && table[1][i] == dot &&
-                            table[2][i] == dot))
-                return true;
-        if ((table[0][0] == dot && table[1][1] == dot &&
-                table[2][2] == dot) ||
-                (table[2][0] == dot && table[1][1] == dot &&
-                        table[0][2] == dot))
-            return true;
-        return false;
+    public String[] checkWin(char dot) {
+        String[] mas = new String[3];
+        for (int i = 0; i < 3; i++) {
+            if (table[i][0] == dot && table[i][1] == dot &&
+                    table[i][2] == dot) {
+                mas[0] = i + ",0";
+                mas[1] = i + ",1";
+                mas[2] = i + ",2";
+                return mas;
+            }
+            if (table[0][i] == dot && table[1][i] == dot &&
+                    table[2][i] == dot) {
+                mas[0] = "0," + i;
+                mas[1] = "1," + i;
+                mas[2] = "2," + i;
+                return mas;
+            }
+        }
+        if (table[0][0] == dot && table[1][1] == dot &&
+                table[2][2] == dot) {
+            mas[0] = "0,0";
+            mas[1] = "1,1";
+            mas[2] = "2,2";
+            return mas;
+        }
+        if ((table[2][0] == dot && table[1][1] == dot &&
+                table[0][2] == dot)) {
+            mas[0] = "2,0";
+            mas[1] = "1,1";
+            mas[2] = "0,2";
+            return mas;
+        }
+        return null;
     }
 
     public boolean isTableFull() {
@@ -128,5 +150,9 @@ public class TicTacToe implements Serializable {
                 if (table[row][col] == SIGN_EMPTY)
                     return false;
         return true;
+    }
+
+    public void turnHuma1(int x, int y) {
+        table[y][x] = 5;
     }
 }
