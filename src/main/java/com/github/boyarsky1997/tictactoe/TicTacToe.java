@@ -16,32 +16,8 @@ public class TicTacToe implements Serializable {
         table = new char[3][3];
     }
 
-    public char getSIGN_X() {
-        return SIGN_X;
-    }
-
-    public char getSIGN_O() {
-        return SIGN_O;
-    }
-
-    public char getSIGN_EMPTY() {
-        return SIGN_EMPTY;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
     public char[][] getTable() {
         return table;
-    }
-
-    public void setTable(char[][] table) {
-        this.table = table;
     }
 
     public void game() {
@@ -88,13 +64,10 @@ public class TicTacToe implements Serializable {
     }
 
     public void turnHuman(int x, int y) {
-        do {
-            System.out.println("Заповни X і Y (1..3):");
-        } while (!isCellValid(x, y));
         table[y][x] = SIGN_X;
     }
 
-    boolean isCellValid(int x, int y) {
+    public boolean isCellValid(int x, int y) {
         if (x < 0 || y < 0 || x >= 3 || y >= 3)
             return false;
         return table[y][x] == SIGN_EMPTY;
@@ -107,6 +80,14 @@ public class TicTacToe implements Serializable {
             y = random.nextInt(3);
         } while (!isCellValid(x, y));
         table[y][x] = SIGN_O;
+    }
+
+    public boolean checkWinHuman() {
+        return checkWin(SIGN_X) != null;
+    }
+
+    public boolean checkWinAI() {
+        return checkWin(SIGN_O) != null;
     }
 
     public String[] checkWin(char dot) {

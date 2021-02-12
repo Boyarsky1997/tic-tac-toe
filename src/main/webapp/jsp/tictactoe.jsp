@@ -1,71 +1,53 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Boyar_5zndhuq
-  Date: 10.02.2021
-  Time: 10:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>HTML код таблицы, примеры</title>
+    <title>Tic Tac Toe</title>
+    <style>
+        footer {
+            position: absolute;
+            bottom: 3%;
+            width: 97%;
+            height: 5.0rem;
+        }
+    </style>
 </head>
 <body>
-
 <form method="post">
-    <table border="1">
-        <tr>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="0,0">${foo.getTable()[0][0]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="0,1">${foo.getTable()[0][1]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="0,2">${foo.getTable()[0][2]}</button>
-            </td>
+    <table border="1" align="center">
+        <c:forEach var="i" begin="0" end="2">
+            <tr>
+                <c:forEach var="j" begin="0" end="2">
+                    <td height="100" width="100">
+                        <button
+                                <c:if test="${game.getTable()[i][j] != 46 || isGameOver }">
+                                    disabled
+                                </c:if>
+                                type="submit"
+                                style="height: 100%;
+                                        width: 100%;
+                                        background: url('<%=request.getContextPath()%>/img/${game.getTable()[i][j]}.png');
+                                        background-size: cover;"
+                                name="submit"
+                                value="${i},${j}"></button>
+                    </td>
+                </c:forEach>
+            </tr>
 
-        </tr>
-        <tr>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="1,0">${foo.getTable()[1][0]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="1,1">${foo.getTable()[1][1]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px; " name="submit"
-                        value="1,2">${foo.getTable()[1][2]}</button>
-            </td>
+        </c:forEach>
 
-
-        </tr>
-        <tr>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="2,0">${foo.getTable()[2][0]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="2,1">${foo.getTable()[2][1]}</button>
-            </td>
-            <td height="100" width="100">
-                <button type="submit" style="height:100px ;width:100px ; " name="submit"
-                        value="2,2">${foo.getTable()[2][2]}</button>
-            </td>
-        </tr>
     </table>
-    <h2>${message}</h2>
+    <h2 align="center">${message}</h2>
     <form>
-        <h2>
+        <h2 align="center">
             ${messages}
         </h2>
+        <p align="center"><a style="height: 100px; width: 100px; text-decoration: none;" href="/game/">New Game</a></p>
     </form>
+    <footer align="right">
+        <p>Author: Roman Boyarsky</p>
+        <p><a href="mailto:boyarsky1997@gmail.com">boyarsky1997@gmail.com</a></p>
+    </footer>
 </form>
 </body>
 </html>
